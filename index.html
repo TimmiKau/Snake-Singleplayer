@@ -25,8 +25,8 @@
       //Head is, snake array - minus one. Returns the last value of the array.
       let head = snake[snake.length - 1].split(',')
       let score = '0'
-      let speed = 1000 - score * 2
       let direction = 'right'
+      let speed = 1000 - score * (2)
 
       const createGameBoard = document.createElement('canvas')
       document.body.appendChild(createGameBoard)
@@ -37,6 +37,11 @@
 
       const scoreBoard = document.createElement('div')
       document.body.appendChild(scoreBoard)
+
+      function interval() {
+        clearInterval(autoMove)
+        setInterval(autoMove, speed)
+      }
 
       function apple() {
         appleCoordinates.x =
@@ -74,7 +79,7 @@
         appleEaten = false
         score++
         scoreBoard.innerText = score
-
+        interval()
         //console.log('Run - Funtion apple')
       }
 
@@ -100,7 +105,7 @@
           //console.log('Apple eaten')
           appleEaten = true
           //snake.push([appleCoordinates.x, appleCoordinates.y])
-          snake.push('600,600')
+          snake.push(`${gameBoardHeight + 100}, ${gameBoardWidth + 100}`)
         }
 
         for (let i = 0; i < snake.length; i++) {
@@ -122,8 +127,6 @@
 
         //lägg till en clean
         gameBoard_ctx.clearRect(0, 0, gameBoard.width, gameBoard.height)
-
-        //Calls the movements Function of the snake.
 
         movement()
         rules()
@@ -192,7 +195,6 @@
 
         rules()
         check()
-
         //console.log('snake move please')
       }
 
@@ -229,7 +231,7 @@
       })
 
       function startGame() {
-        setInterval(autoMove, speed)
+        interval()
         apple()
       }
 
